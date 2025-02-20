@@ -1,0 +1,6 @@
+[robotpybuild]
+ctre = phoenix5.pkgcfg
+ctre_api_cpp_sim = phoenix5._api_cpp_sim.pkgcfg
+ctre_cci_sim = phoenix5._cci_sim.pkgcfg
+ctre_tools_sim = phoenix5._tools_sim.pkgcfg
+ctre_wpiapi_cpp_sim = phoenix5._wpiapi_cpp_sim.pkgcfg

@@ -1,0 +1,45 @@
+Metadata-Version: 2.2
+Name: robotpy-rev
+Version: 2025.0.2
+Summary: REVLib for RobotPy
+Home-page: https://github.com/robotpy/robotpy-rev
+Author: RobotPy Development Team
+Author-email: robotpy@googlegroups.com
+License: BSD-3-Clause
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: wpilib<2026.0.0,>=2025.2.1
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+robotpy-rev
+===========
+
+This is a python wrapper around the REV Robotics REVLib. The RobotPy project
+is not associated with or endorsed by REV Robotics.
+
+Documentation
+=============
+
+* `Installation <http://robotpy.readthedocs.io/en/stable/install/rev.html>`_
+* `Python API Documentation <http://robotpy.readthedocs.io/projects/rev/en/stable/api.html>`_
+* `REVLib documentation <https://docs.revrobotics.com/docs/first-robotics-competition>`_
+
+License
+=======
+
+RobotPy specific bits are available under a BSD-3-Clause license. The REV
+specific pieces are available under a BSD license.
+
+Author
+======
+
+Dustin Spicuzza (dustin@virtualroadside.com)
