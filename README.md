@@ -1,5 +1,22 @@
 # BetterVetSwerve
 
+## Progress
+- [ ] constants.py
+- [ ] robot.py
+- [ ] robotcontainer.py
+- Commands
+  - [ ] FCDrive.py
+  - [ ] auto.py
+  - [ ] bucketCommand.py
+  - [ ] halveDriveSpeed.py
+  - [ ] intakeCommand.py
+- Subsystems
+  - [ ] bucketSubsystem.py
+  - [ ] intakeSubystem.py
+  - [ ] state.py
+  - [ ] swerveDrive.py
+  - [ ] swerveModule.py
+
 ## Git
 * The main branch is only for 100% tested, working code
 * Merging dev to main should require at least one other programmer to agree
