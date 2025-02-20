@@ -28,12 +28,13 @@
 ```
 def getHighestID(self, targets: list[PhotonTrackedTarget]) -> PhotonTrackedTarget:
   """
-    Returns the target with the highest fiducial ID from the provided list of targets.  
-    Args:
-      targets (list): A list of PhotonTrackedTarget objects to search through.
+  Returns the target with the highest fiducial ID from the provided list of targets.
+ 
+  Args:
+    targets (list): A list of PhotonTrackedTarget objects to search through.
 
-    Returns:
-      PhotonTrackedTarget: The target with the highest fiducial ID.
+  Returns:
+    PhotonTrackedTarget: The target with the highest fiducial ID.
   """
 
   bestTarget = targets[0]
