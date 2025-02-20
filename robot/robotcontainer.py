@@ -17,11 +17,12 @@ from wpilib.interfaces import GenericHID
 import commands2
 import commands2.button
 
-import constants
 from subsystems.state import State
 from subsystems.swerveDrive import SwerveDrive
 from subsystems.bucketSubsystem import BucketSubsystem
 from commands.FCDrive import FODrive
+
+from constants import DRIVER_CONTROLLER_PORT, ENDSTOP_INVERSION, IN_ENDSTOP_PORT, OUT_ENDSTOP_PORT
 
 class RobotContainer:
     """
@@ -33,8 +34,8 @@ class RobotContainer:
 
     def __init__(self) -> None:
         # The driver's controller
-        # self.driverController = wpilib.XboxController(constants.kDriverControllerPort)
-        self.driverController = wpilib.Joystick(constants.kDriverControllerPort)
+        # self.driverController = wpilib.XboxController(DRIVER_CONTROLLER_PORT)
+        self.driverController = wpilib.Joystick(DRIVER_CONTROLLER_PORT)
 
         # The robot's subsystems                
         # Drive
@@ -98,8 +99,8 @@ class RobotContainer:
         commands2.button.Trigger(self.state.isEndstopOverride).onTrue(commands2.cmd.runOnce(lambda: print("!!!ENDSTOPS OVERRIDDEN!!!")))
 
         # Endstops
-        self.mapEndstop(constants.kOutEndstopPort, "Out", not constants.kEndstopInversion)
-        self.mapEndstop(constants.kInEndstopPort, "In", constants.kEndstopInversion)
+        self.mapEndstop(OUT_ENDSTOP_PORT, "Out", not ENDSTOP_INVERSION)
+        self.mapEndstop(IN_ENDSTOP_PORT, "In", ENDSTOP_INVERSION)
 
         # STATES - States trigger commands
         commands2.button.Trigger(self.state.isExtending).whileTrue(Extend(self.bucket))

@@ -1,6 +1,6 @@
 from asyncio import constants
 import commands2
-import constants
+from constants import BUCKET_SPEED
 
 from subsystems.bucketSubsystem import BucketSubsystem
 
@@ -10,7 +10,7 @@ class Extend(commands2.Command):
         self.bucket = bucket
              
     def initialize(self) -> None:
-        self.bucket.setSpeed(constants.kBucketSpeed)
+        self.bucket.setSpeed(BUCKET_SPEED)
 
     def end(self, interrupted: bool) -> None:
         self.bucket.setSpeed(0)
@@ -21,7 +21,7 @@ class Retract(commands2.Command):
         self.bucket = bucket
              
     def initialize(self) -> None:
-        self.bucket.setSpeed(-constants.kBucketSpeed)
+        self.bucket.setSpeed(-BUCKET_SPEED)
 
     def end(self, interrupted: bool) -> None:
         self.bucket.setSpeed(0)

@@ -1,10 +1,17 @@
 import commands2
 import wpilib.shuffleboard
-import constants
 from wpilib.shuffleboard import Shuffleboard
 from subsystems.swerveDrive import SwerveDrive
 from wpilib import SmartDashboard
 import wpilib
+
+from constants import DEFAULT_OBJECTIVE
+from constants import DEFAULT_BUCKET
+from constants import DEFAULT_INTAKE
+from constants import DEFAULT_END_STOP
+from constants import DEFAULT_END_STOP_OVERRIDE
+from constants import DEFAULT_OBJECTIVE
+from constants import DEFAULT_OBJECTIVE
 
 class State(commands2.Subsystem):
     """
@@ -83,12 +90,12 @@ def mapButton(self, button, stateTrigger): # Maps a physical button to trigger a
 
         self.drive = drive
 
-        self.objective = constants.kDefaultObjective # "P": plow, "I": intake, "B": bucket
-        self.bucket = constants.kDefaultBucket # 1: moving out, 0: idle, -1: moving in
-        self.intake = constants.kDefaultIntake # Desired state of intake (intake can't run if the bucket is out) 1: intaking, 0: idle, -1: outtake
-        self.endstop = constants.kDefaultEndStop # 1: fully out, 0: middle, -1: fully in
+        self.objective = DEFAULT_OBJECTIVE # "P": plow, "I": intake, "B": bucket
+        self.bucket = DEFAULT_BUCKET # 1: moving out, 0: idle, -1: moving in
+        self.intake = DEFAULT_INTAKE # Desired state of intake (intake can't run if the bucket is out) 1: intaking, 0: idle, -1: outtake
+        self.endstop = DEFAULT_END_STOP # 1: fully out, 0: middle, -1: fully in
         self.intaking = self.intake # 1: intaking, 0: idle, -1: outtake
-        self.endstopOverride = constants.kDefaultEndStopOverride # User can overide the endstops if they are not working 0: not overridden, 1 overridden
+        self.endstopOverride = DEFAULT_END_STOP_OVERRIDE # User can overide the endstops if they are not working 0: not overridden, 1 overridden
 
         # Shuffleboard widgets
         self.tab = Shuffleboard.getTab("State")

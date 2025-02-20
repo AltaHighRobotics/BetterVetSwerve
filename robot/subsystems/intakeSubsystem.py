@@ -1,5 +1,5 @@
 from commands2 import Subsystem
-import constants
+from constants import INTAKE_LEFT_ID, INTAKE_RIGHT_ID
 import phoenix5 as ctre
 import wpilib
 class IntakeSubsystem(Subsystem):
@@ -9,8 +9,8 @@ class IntakeSubsystem(Subsystem):
 
     def __init__(self) -> None:
         super().__init__()
-        self.motorLeft = ctre.WPI_TalonSRX(constants.kIntakeLID)
-        self.motorRight = ctre.WPI_TalonSRX(constants.kIntakeRID)
+        self.motorLeft = ctre.WPI_TalonSRX(INTAKE_LEFT_ID)
+        self.motorRight = ctre.WPI_TalonSRX(INTAKE_RIGHT_ID)
         self.motorRight.setInverted(True)
         self.motors = wpilib.MotorControllerGroup(self.motorLeft, self.motorRight)
 

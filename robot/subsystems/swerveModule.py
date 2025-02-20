@@ -9,9 +9,10 @@ import phoenix5 as ctre
 import constants
 
 
-kWheelRadius = 0.0508 # In meters
-kModuleMaxAngularVelocity = math.pi
-kModuleMaxAngularAcceleration = math.tau
+from constants import MODULE_MAX_ANGULAR_VELOCITY 
+from constants import MODULE_MAX_ANGULAR_ACCELERATION 
+from constants import WHEEL_RADIUS 
+from constants import SWERVE_TURN_GEAR_RATIO
 
 class SwerveModule:
     """
@@ -26,8 +27,8 @@ class SwerveModule:
         self.turningPIDController = wpimath.controller.ProfiledPIDController(
             kP, kI, kD,
             wpimath.trajectory.TrapezoidProfile.Constraints(
-                kModuleMaxAngularVelocity,
-                kModuleMaxAngularAcceleration,
+                MODULE_MAX_ANGULAR_VELOCITY,
+                MODULE_MAX_ANGULAR_ACCELERATION,
             ),
         ) # Turn PID controller
 
@@ -39,7 +40,7 @@ class SwerveModule:
         self.turningPIDController.enableContinuousInput(-math.pi, math.pi)
 
     def getEncoder(self): # Get the current position of the module
-        return wpimath.geometry.Rotation2d(self.turnEncoder.getPosition() * math.tau * constants.kSwerveTurnGearRatio)
+        return wpimath.geometry.Rotation2d(self.turnEncoder.getPosition() * math.tau * SWERVE_TURN_GEAR_RATIO)
     
     def setMaxOut(self, value: float):
         self.maxOut = value
@@ -87,7 +88,7 @@ class SwerveModule:
 
         # Calculate the turning motor output from the turning PID controller.
         turnOutput = self.turningPIDController.calculate(
-            self.turnEncoder.getPosition() * math.tau * constants.kSwerveTurnGearRatio, state.angle.radians()
+            self.turnEncoder.getPosition() * math.tau * SWERVE_TURN_GEAR_RATIO, state.angle.radians()
         )
 
         # Acutually drive!

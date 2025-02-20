@@ -1,5 +1,5 @@
 from commands2 import Subsystem
-import constants
+from constants import BUCKET_ID
 import phoenix5 as ctre
 
 class BucketSubsystem(Subsystem):
@@ -9,7 +9,7 @@ class BucketSubsystem(Subsystem):
 
     def __init__(self) -> None:
         super().__init__()
-        self.motor = ctre.VictorSPX(constants.kBucketID)
+        self.motor = ctre.VictorSPX(BUCKET_ID)
         self.motor.setInverted(True)
         
 

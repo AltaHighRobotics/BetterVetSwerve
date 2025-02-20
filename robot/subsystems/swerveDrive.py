@@ -9,6 +9,26 @@ import navx
 import ntcore
 import math
 
+from constants import FRONT_LEFT_DRIVE_ID
+from constants import FRONT_LEFT_TURN_ID
+from constants import FRONT_RIGHT_DRIVE_ID
+from constants import FRONT_RIGHT_TURN_ID
+from constants import BACK_LEFT_DRIVE_ID
+from constants import BACK_LEFT_TURN_ID
+from constants import BACK_RIGHT_DRIVE_ID
+from constants import BACK_RIGHT_TURN_ID
+from constants import TURN_P
+from constants import TURN_I
+from constants import TURN_D
+from constants import SWERVE_MOD_CENTER_TO_CENTER
+from constants import SWERVE_MAX_OUTPUT
+from constants import DEADBAND
+from constants import TURN_DEADBAND
+from constants import SWERVE_MIN_SPEED
+from constants import SWERVE_MAX_SPEED
+from constants import SWERVE_MAX_OUTPUT
+
+
 class SwerveDrive(Subsystem):
     """
     Represents a swerve drive style drivetrain.
@@ -17,25 +37,55 @@ class SwerveDrive(Subsystem):
     def __init__(self) -> None:
         super().__init__()
 
-        self.frontLeftLocation = wpimath.geometry.Translation2d(constants.kSwerveModCtrToCtr/2, constants.kSwerveModCtrToCtr/2)
-        self.frontRightLocation = wpimath.geometry.Translation2d(constants.kSwerveModCtrToCtr/2, -constants.kSwerveModCtrToCtr/2)
-        self.backLeftLocation = wpimath.geometry.Translation2d(-constants.kSwerveModCtrToCtr/2, constants.kSwerveModCtrToCtr/2)
-        self.backRightLocation = wpimath.geometry.Translation2d(-constants.kSwerveModCtrToCtr/2, -constants.kSwerveModCtrToCtr/2)
+        ctrToCtrOverTwo = SWERVE_MOD_CENTER_TO_CENTER / 2
 
-        self.frontLeft = SwerveModule(constants.kFLDriveID, constants.kFLTurnID,
-                                      constants.kTurnFLP, constants.kTurnFLI, constants.kTurnFLD)
-        self.frontRight = SwerveModule(constants.kFRDriveID, constants.kFRTurnID,
-                                       constants.kTurnFRP, constants.kTurnFRI, constants.kTurnFRD)
-        self.backLeft = SwerveModule(constants.kBLDriveID, constants.kBLTurnID,
-                                     constants.kTurnBLP, constants.kTurnBLI, constants.kTurnBLD)
-        self.backRight = SwerveModule(constants.kBRDriveID, constants.kBRTurnID,
-                                      constants.kTurnBRP, constants.kTurnBRI, constants.kTurnBRD)
-        
+        self.frontLeftLocation = wpimath.geometry.Translation2d(
+            ctrToCtrOverTwo, ctrToCtrOverTwo
+        )
+        self.frontRightLocation = wpimath.geometry.Translation2d(
+            ctrToCtrOverTwo, -ctrToCtrOverTwo
+        )
+        self.backLeftLocation = wpimath.geometry.Translation2d(
+            -ctrToCtrOverTwo, ctrToCtrOverTwo
+        )
+        self.backRightLocation = wpimath.geometry.Translation2d(
+            -ctrToCtrOverTwo, -ctrToCtrOverTwo
+        )
+
+        self.frontLeft = SwerveModule(
+            FRONT_LEFT_DRIVE_ID,
+            FRONT_LEFT_TURN_ID,
+            TURN_P,
+            TURN_I,
+            TURN_D,
+        )
+        self.frontRight = SwerveModule(
+            FRONT_RIGHT_DRIVE_ID,
+            FRONT_RIGHT_TURN_ID,
+            TURN_P,
+            TURN_I,
+            TURN_D,
+        )
+        self.backLeft = SwerveModule(
+            BACK_LEFT_DRIVE_ID,
+            BACK_LEFT_TURN_ID,
+            TURN_P,
+            TURN_I,
+            TURN_D,
+        )
+        self.backRight = SwerveModule(
+            BACK_RIGHT_DRIVE_ID,
+            BACK_RIGHT_TURN_ID,
+            TURN_P,
+            TURN_I,
+            TURN_D,
+        )
+
         self.turnLock = False
-        
-        self.setMaxOutput(constants.kSwerveMaxOutput)
 
-        self.gyro = navx.AHRS.create_spi() # NavX
+        self.setMaxOutput(SWERVE_MAX_OUTPUT)
+
+        self.gyro = navx.AHRS.create_spi()  # NavX
 
         self.kinematics = wpimath.kinematics.SwerveDrive4Kinematics(
             self.frontLeftLocation,
@@ -58,7 +108,7 @@ class SwerveDrive(Subsystem):
         xSpeed: float,
         rot: float,
         speed: float,
-        fieldRelative: bool
+        fieldRelative: bool,
     ) -> None:
         """
         Method to drive the robot using joystick info.
@@ -69,48 +119,56 @@ class SwerveDrive(Subsystem):
         :param fieldRelative: Whether the provided x and y speeds are relative to the field.
         """
         axes0 = 0
-        if abs(xSpeed) < constants.kDeadband:
+        if abs(xSpeed) < DEADBAND:
             xSpeed = 0
             axes0 += 1
-        if abs(ySpeed) < constants.kDeadband:
+        if abs(ySpeed) < DEADBAND:
             ySpeed = 0
             axes0 += 1
-        if abs(rot) < constants.kTurnDeadband or self.turnLock:
+        if abs(rot) < TURN_DEADBAND or self.turnLock:
             rot = 0
-            axes0 += 1 
-        else: rot -= math.copysign(constants.kTurnDeadband,rot) 
-        
-        speed = max(constants.kSwerveMinSpeed, min(speed, constants.kSwerveMaxSpeed)) # Change the drive speed based on the position of the slider
+            axes0 += 1
+        else:
+            rot -= math.copysign(TURN_DEADBAND, rot)
 
-        swerveModuleStates = self.kinematics.toSwerveModuleStates(   # Kinematics
+        speed = max(
+            SWERVE_MIN_SPEED, min(speed, SWERVE_MAX_SPEED)
+        )  # Change the drive speed based on the position of the slider
+
+        swerveModuleStates = self.kinematics.toSwerveModuleStates(  # Kinematics
             wpimath.kinematics.ChassisSpeeds.fromFieldRelativeSpeeds(
-                -xSpeed*speed, -ySpeed*speed, -rot*speed*math.pi, self.gyro.getRotation2d()
+                -xSpeed * speed,
+                -ySpeed * speed,
+                -rot * speed * math.pi,
+                self.gyro.getRotation2d(),
             )
             if fieldRelative
             else wpimath.kinematics.ChassisSpeeds(-xSpeed, -ySpeed, -rot)
         )
 
         # self.pub.set([swerveModuleStates[0],swerveModuleStates[1],swerveModuleStates[2],swerveModuleStates[3]]) # AdvantageScope
-        #print(axes0)
+        # print(axes0)
         if axes0 == 3:
-            swerveModuleStates[0].angle = wpimath.geometry.Rotation2d(math.pi/4)
-            swerveModuleStates[1].angle = wpimath.geometry.Rotation2d(-math.pi/4)
-            swerveModuleStates[2].angle = wpimath.geometry.Rotation2d(-math.pi/4)
-            swerveModuleStates[3].angle = wpimath.geometry.Rotation2d(math.pi/4)
+            swerveModuleStates[0].angle = wpimath.geometry.Rotation2d(math.pi / 4)
+            swerveModuleStates[1].angle = wpimath.geometry.Rotation2d(-math.pi / 4)
+            swerveModuleStates[2].angle = wpimath.geometry.Rotation2d(-math.pi / 4)
+            swerveModuleStates[3].angle = wpimath.geometry.Rotation2d(math.pi / 4)
         # Set each swerve module to the state produced by the kinematics
         self.frontLeft.setDesiredState(swerveModuleStates[0])
         self.frontRight.setDesiredState(swerveModuleStates[1])
         self.backLeft.setDesiredState(swerveModuleStates[2])
         self.backRight.setDesiredState(swerveModuleStates[3])
 
-    def setMaxOutput(self, maxOutput): # Maximum PercentOutput the drive motors can be driven at
+    def setMaxOutput(
+        self, maxOutput
+    ):  # Maximum PercentOutput the drive motors can be driven at
         self.maxOut = maxOutput
         self.frontLeft.setMaxOut(self.maxOut)
         self.frontRight.setMaxOut(self.maxOut)
         self.backLeft.setMaxOut(self.maxOut)
         self.backRight.setMaxOut(self.maxOut)
-    
-    def FOReset(self): # Set FO forward to the direction the plow is facing
+
+    def FOReset(self):  # Set FO forward to the direction the plow is facing
         self.gyro.zeroYaw()
 
     def lockTurn(self):
