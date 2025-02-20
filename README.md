@@ -24,6 +24,25 @@
 * Please use ruff (for now only on needed files until things are cleaned up) before making a pull request to merge your branch to dev
 * After merge delete your branch
 
+## Documentation Example
+```
+def getHighestID(self, targets: list[PhotonTrackedTarget]) -> PhotonTrackedTarget:
+  """
+    Returns the target with the highest fiducial ID from the provided list of targets.  
+    Args:
+      targets (list): A list of PhotonTrackedTarget objects to search through.
+
+    Returns:
+      PhotonTrackedTarget: The target with the highest fiducial ID.
+  """
+
+  bestTarget = targets[0]
+  for target in targets:
+    if target.getFiducialId() > bestTarget.getFiducialId():
+      bestTarget = target
+  return bestTarget
+```
+
 ## Ruff
 https://github.com/astral-sh/ruff
 
