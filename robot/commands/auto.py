@@ -3,9 +3,9 @@ from subsystems.swerveDrive import SwerveDrive
 import time
 
 class AutonomusCommand(commands2.Command):
-    def __init__(self, drive: SwerveDrive, seconds: float) -> None:
+    def __init__(self, drive: SwerveDrive, lifetimeSeconds: float) -> None:
         self.drive = drive
-        self.seconds = seconds
+        self.lifetimeSeconds = lifetimeSeconds
         self.done = False
 
         # Require the drive subsystem
@@ -19,9 +19,13 @@ class AutonomusCommand(commands2.Command):
         
     # Override
     def execute(self) -> None:
-        if time.time() - self.time <= self.seconds:
+        """
+        Only executes if the robot is still within its lifetime
+        """
+        
+        if time.time() - self.time <= self.lifetimeSeconds:
             self.drive.drive(0, -0.5, 0, 1, True)
-        elif time.time() - self.time <= self.seconds + 2:
+        elif time.time() - self.time <= self.lifetimeSeconds + 2: # Give the robot 2 seconds to stop before DONE (For some reason?!)
             self.stopDrive()
         else:
             self.done = True
