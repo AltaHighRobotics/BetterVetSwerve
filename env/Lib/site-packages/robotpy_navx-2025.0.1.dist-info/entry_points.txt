@@ -1,0 +1,2 @@
+[robotpybuild]
+navx = navx.pkgcfg

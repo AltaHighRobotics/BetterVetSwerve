@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: robotpy-commands-v2
+Version: 2025.1.1
+Summary: WPILib command framework v2
+Home-page: https://github.com/robotpy/robotpy-commands-v2
+Author: RobotPy Development Team
+Author-email: robotpy@googlegroups.com
+License: BSD-3-Clause
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: wpilib<2026,>=2025.1.1
+Requires-Dist: typing_extensions<5,>=4.1.0
