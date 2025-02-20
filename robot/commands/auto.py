@@ -3,29 +3,36 @@ from subsystems.swerveDrive import SwerveDrive
 import time
 
 class AutonomusCommand(commands2.Command):
-    def __init__(self, drive: SwerveDrive, seconds: float):
+    def __init__(self, drive: SwerveDrive, seconds: float) -> None:
         self.drive = drive
-        self.secs = seconds
+        self.seconds = seconds
         self.done = False
 
         # Require the drive subsystem
         self.addRequirements(self.drive)
 
-    def initialize(self):
+    # Override
+    def initialize(self) -> None:
         self.drive.FOReset()
         self.time = time.time()
         self.done = False
         
-    def execute(self):
-        if time.time() - self.time <= self.secs:
-            self.drive.drive(0, -.5, 0, 1, True)
-        elif time.time() - self.time <= self.secs + 2:
-            self.drive.drive(0, 0, 0, 0, False)
+    # Override
+    def execute(self) -> None:
+        if time.time() - self.time <= self.seconds:
+            self.drive.drive(0, -0.5, 0, 1, True)
+        elif time.time() - self.time <= self.seconds + 2:
+            self.stopDrive()
         else:
             self.done = True
         
-    def end(self, interrupted: bool):
-        self.drive.drive(0, 0, 0, 0, False)
+    # Override
+    def end(self, interrupted: bool) -> None:
+        self.stopDrive()
     
+    # Override
     def isFinished(self) -> bool:
         return self.done
+
+    def stopDrive(self) -> None:
+        self.drive.drive(0, 0, 0, 0, False)
