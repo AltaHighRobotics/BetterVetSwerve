@@ -6,3 +6,8 @@
 * Don't make commits directly to dev either, make a branch (ex: eh_cleaning_up_subsystems) and then PULL FROM DEV and deal with CONFLICTS ON YOUR END
 * Please use ruff (for now only on needed files until things are cleaned up) before making a pull request to merge your branch to dev
 * After merge delete your branch
+
+## Ruff
+https://github.com/astral-sh/ruff
+
+Should be as easy as `ruff file.py`
