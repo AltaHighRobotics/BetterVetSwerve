@@ -27,4 +27,4 @@
 ## Ruff
 https://github.com/astral-sh/ruff
 
-Should be as easy as `ruff file.py`
+Should be as easy as `ruff check file.py`
