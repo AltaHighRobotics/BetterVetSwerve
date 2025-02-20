@@ -6,7 +6,7 @@
 - [ ] robotcontainer.py
 - Commands
   - [ ] FCDrive.py
-  - [ ] auto.py
+  - [x] auto.py
   - [ ] bucketCommand.py
   - [ ] halveDriveSpeed.py
   - [ ] intakeCommand.py
