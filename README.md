@@ -1,7 +1,7 @@
 # BetterVetSwerve
 
 ## Progress
-- [ ] constants.py
+- [x] constants.py
 - [ ] robot.py
 - [ ] robotcontainer.py
 - Commands
@@ -9,7 +9,7 @@
   - [x] auto.py
   - [x] bucketCommand.py
   - [x] halveDriveSpeed.py
-  - [ ] intakeCommand.py
+  - [x] intakeCommand.py
 - Subsystems
   - [ ] bucketSubsystem.py
   - [ ] intakeSubystem.py
