@@ -21,7 +21,6 @@ from constants import TURN_P
 from constants import TURN_I
 from constants import TURN_D
 from constants import SWERVE_MOD_CENTER_TO_CENTER
-from constants import SWERVE_MAX_OUTPUT
 from constants import DEADBAND
 from constants import TURN_DEADBAND
 from constants import SWERVE_MIN_SPEED

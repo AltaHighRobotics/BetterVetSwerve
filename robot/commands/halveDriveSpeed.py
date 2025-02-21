@@ -8,6 +8,7 @@ import commands2
 
 from subsystems.swerveDrive import SwerveDrive
 
+from constants import SWERVE_MAX_OUTPUT
 
 class HalveDriveSpeed(commands2.Command):
     def __init__(self, drive: SwerveDrive) -> None:
@@ -18,4 +19,4 @@ class HalveDriveSpeed(commands2.Command):
         self.drive.setMaxOutput(0.5)
 
     def end(self, interrupted: bool) -> None:
-        self.drive.setMaxOutput(.75)
+        self.drive.setMaxOutput(SWERVE_MAX_OUTPUT)

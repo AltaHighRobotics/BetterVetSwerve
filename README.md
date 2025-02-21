@@ -8,7 +8,7 @@
   - [x] FCDrive.py
   - [x] auto.py
   - [x] bucketCommand.py
-  - [ ] halveDriveSpeed.py
+  - [x] halveDriveSpeed.py
   - [ ] intakeCommand.py
 - Subsystems
   - [ ] bucketSubsystem.py
