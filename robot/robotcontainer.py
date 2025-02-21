@@ -44,16 +44,9 @@ class RobotContainer:
         self.driverController = wpilib.Joystick(DRIVER_CONTROLLER_PORT)
 
         # The robot's subsystems
-        # Drive
         self.drive = SwerveDrive()
-
-        # Bucket
         self.bucket = BucketSubsystem()
-
-        # Intake
         self.intake = IntakeSubsystem()
-
-        # State
         self.state = State(self.drive)
 
         self.autoChooser = wpilib.SendableChooser()

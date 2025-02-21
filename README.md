@@ -2,8 +2,8 @@
 
 ## Progress
 - [x] constants.py
-- [ ] robot.py
-- [ ] robotcontainer.py
+- [x] robot.py
+- [x] robotcontainer.py
 - Commands
   - [x] FCDrive.py
   - [x] auto.py
