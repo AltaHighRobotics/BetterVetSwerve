@@ -2,12 +2,13 @@ from pickle import FALSE
 from commands2 import Subsystem
 import constants
 
-import wpimath.geometry
-import wpimath.kinematics
 from subsystems.swerveModule import SwerveModule
 import navx
 import ntcore
 import math
+
+from wpimath.geometry import Translation2d, Rotation2d
+from wpimath.kinematics import ChassisSpeeds, SwerveDrive4Kinematics
 
 from constants import FRONT_LEFT_DRIVE_ID
 from constants import FRONT_LEFT_TURN_ID
@@ -38,16 +39,16 @@ class SwerveDrive(Subsystem):
 
         ctrToCtrOverTwo = SWERVE_MOD_CENTER_TO_CENTER / 2
 
-        self.frontLeftLocation = wpimath.geometry.Translation2d(
+        self.frontLeftLocation = Translation2d(
             ctrToCtrOverTwo, ctrToCtrOverTwo
         )
-        self.frontRightLocation = wpimath.geometry.Translation2d(
+        self.frontRightLocation = Translation2d(
             ctrToCtrOverTwo, -ctrToCtrOverTwo
         )
-        self.backLeftLocation = wpimath.geometry.Translation2d(
+        self.backLeftLocation = Translation2d(
             -ctrToCtrOverTwo, ctrToCtrOverTwo
         )
-        self.backRightLocation = wpimath.geometry.Translation2d(
+        self.backRightLocation = Translation2d(
             -ctrToCtrOverTwo, -ctrToCtrOverTwo
         )
 
@@ -86,7 +87,7 @@ class SwerveDrive(Subsystem):
 
         self.gyro = navx.AHRS.create_spi()  # NavX
 
-        self.kinematics = wpimath.kinematics.SwerveDrive4Kinematics(
+        self.kinematics = SwerveDrive4Kinematics(
             self.frontLeftLocation,
             self.frontRightLocation,
             self.backLeftLocation,
@@ -135,23 +136,23 @@ class SwerveDrive(Subsystem):
         )  # Change the drive speed based on the position of the slider
 
         swerveModuleStates = self.kinematics.toSwerveModuleStates(  # Kinematics
-            wpimath.kinematics.ChassisSpeeds.fromFieldRelativeSpeeds(
+            ChassisSpeeds.fromFieldRelativeSpeeds(
                 -xSpeed * speed,
                 -ySpeed * speed,
                 -rot * speed * math.pi,
                 self.gyro.getRotation2d(),
             )
             if fieldRelative
-            else wpimath.kinematics.ChassisSpeeds(-xSpeed, -ySpeed, -rot)
+            else ChassisSpeeds(-xSpeed, -ySpeed, -rot)
         )
 
         # self.pub.set([swerveModuleStates[0],swerveModuleStates[1],swerveModuleStates[2],swerveModuleStates[3]]) # AdvantageScope
         # print(axes0)
         if axes0 == 3:
-            swerveModuleStates[0].angle = wpimath.geometry.Rotation2d(math.pi / 4)
-            swerveModuleStates[1].angle = wpimath.geometry.Rotation2d(-math.pi / 4)
-            swerveModuleStates[2].angle = wpimath.geometry.Rotation2d(-math.pi / 4)
-            swerveModuleStates[3].angle = wpimath.geometry.Rotation2d(math.pi / 4)
+            swerveModuleStates[0].angle = Rotation2d(math.pi / 4)
+            swerveModuleStates[1].angle = Rotation2d(-math.pi / 4)
+            swerveModuleStates[2].angle = Rotation2d(-math.pi / 4)
+            swerveModuleStates[3].angle = Rotation2d(math.pi / 4)
         # Set each swerve module to the state produced by the kinematics
         self.frontLeftModule.setDesiredState(swerveModuleStates[0])
         self.frontRightModule.setDesiredState(swerveModuleStates[1])
