@@ -13,7 +13,7 @@
 - Subsystems
   - [x] bucketSubsystem.py
   - [x] intakeSubystem.py
-  - [ ] state.py
+  - [x] state.py
   - [ ] swerveDrive.py
   - [ ] swerveModule.py
 
