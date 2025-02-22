@@ -12,7 +12,7 @@
   - [x] intakeCommand.py
 - Subsystems
   - [x] bucketSubsystem.py
-  - [ ] intakeSubystem.py
+  - [x] intakeSubystem.py
   - [ ] state.py
   - [ ] swerveDrive.py
   - [ ] swerveModule.py
