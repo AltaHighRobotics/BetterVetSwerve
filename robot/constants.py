@@ -23,8 +23,8 @@ DEFAULT_END_STOP_OVERRIDE = 0  # Default override for the endstop mechanism (0 c
     *** Swerve Drive Configuration ***
     These constants define the swerve drive parameters, including gear ratios and speeds for movement.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-SWERVE_TURN_GEAR_RATIO = 1/180  # Gear ratio for turning the swerve modules (rotations of the motor per wheel rotation)
-SWERVE_MOD_CENTER_TO_CENTER = 0.635  # The distance between the centers of the swerve modules (in meters)
+SWERVE_TURN_GEAR_RATIO = 1/170 #1/180  # Gear ratio for turning the swerve modules (rotations of the motor per wheel rotation)
+SWERVE_MOD_CENTER_TO_CENTER = 0.5715 #0.635  # The distance between the centers of the swerve modules (in meters)
 MODULE_MAX_ANGULAR_VELOCITY = pi  # The maximum angular velocity (speed of rotation) of the swerve module (in radians per second)
 MODULE_MAX_ANGULAR_ACCELERATION = tau  # The maximum angular acceleration (rate of change of angular velocity) for the swerve module
 WHEEL_RADIUS = 0.0508  # The radius of the swerve drive wheels (in meters)
