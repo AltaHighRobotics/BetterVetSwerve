@@ -1,6 +1,7 @@
 from commands2 import Command
 from subsystems.swerveDrive import SwerveDrive
 import typing
+from constants import FIELD_ORIENTED
 
 class FODrive(Command):
     def __init__(self,
@@ -21,4 +22,4 @@ class FODrive(Command):
         self.addRequirements(self.drive)
 
     def execute(self):
-        self.drive.drive(self.forward_speed(), self.strafe_speed(), self.rotation_speed(), self.speed_scaling(), True)
+        self.drive.drive(self.forward_speed(), self.strafe_speed(), self.rotation_speed(), self.speed_scaling(), FIELD_ORIENTED)

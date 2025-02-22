@@ -7,6 +7,7 @@ from math import tau, pi
 DRIVER_CONTROLLER_PORT = 0  # The port number for the driver controller
 DEADBAND = 0.2  # The deadband range for joystick movement, where small inputs are ignored
 TURN_DEADBAND = 0.5  # The deadband range specifically for turning inputs on the joystick
+FIELD_ORIENTED = True # NOT RECOMMENDED TO CHANGE
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     *** Default States and Settings ***

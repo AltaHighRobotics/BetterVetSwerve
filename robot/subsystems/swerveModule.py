@@ -6,7 +6,6 @@ import wpimath.controller
 import wpimath.trajectory
 import rev
 import phoenix5 as ctre
-import constants
 
 
 from constants import MODULE_MAX_ANGULAR_VELOCITY 
@@ -39,7 +38,7 @@ class SwerveModule:
         # Limit input range to -pi to pi with wrap
         self.turningPIDController.enableContinuousInput(-math.pi, math.pi)
 
-    def getEncoder(self): # Get the current position of the module
+    def getEncoder(self) -> wpimath.geometry.Rotation2d: # Get the current position of the module
         return wpimath.geometry.Rotation2d(self.turnEncoder.getPosition() * math.tau * SWERVE_TURN_GEAR_RATIO)
     
     def setMaxOut(self, value: float):
@@ -57,10 +56,8 @@ class SwerveModule:
         desiredState.angle = -desiredState.angle # invert the desired angle because of how our modules are configured
 
         # Optimize the reference state to avoid spinning further than 90 degrees
+        desiredState.optimize(encoderRotation)
         state = desiredState
-        # optimizedState = wpimath.kinematics.SwerveModuleState.optimize(
-        #     desiredState, encoderRotation
-        # )
 
 
 #### THIS IS EDITED OUT
@@ -68,19 +65,6 @@ class SwerveModule:
         # direction of travel that can occur when modules change directions. This results in smoother
         # driving.
 
-        # CRASH optimizedState.speed *= math.cos(optimizedState.angle - encoderRotation)
-        # CRASH math.cos(optimizedState.angle - encoderRotation)
-        # CRASH optimizedState.angle - encoderRotation
-        # CRASH optimizedState.angle <- FUCK YOU
-        # NOCRASH encoderRotation
-        # CRASH state.speed *= math.cos(state.angle - encoderRotation)
-        # CRASH math.cos(state.angle - encoderRotation)
-        # NOCRASH state.angle
-        # NOCRASH state.angle - encoderRotation
-        # NOCRASH math.cos(3)
-        # CRASH math.cos(state.angle)
-        # CRASH raise Exception(type(state.angle))
-        # NOCRASH print(type(state.angle))
         state.speed *= (state.angle - encoderRotation).cos()
 
         # Calculate the drive output from the drive PID controller.
