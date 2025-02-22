@@ -11,7 +11,7 @@
   - [x] halveDriveSpeed.py
   - [x] intakeCommand.py
 - Subsystems
-  - [ ] bucketSubsystem.py
+  - [x] bucketSubsystem.py
   - [ ] intakeSubystem.py
   - [ ] state.py
   - [ ] swerveDrive.py
