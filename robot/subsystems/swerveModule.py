@@ -1,12 +1,11 @@
 import math
-import wpilib
-import wpimath.kinematics
-import wpimath.geometry
-import wpimath.controller
-import wpimath.trajectory
-import rev
 import phoenix5 as ctre
 
+from rev import SparkLowLevel, SparkMax
+from wpimath.controller import ProfiledPIDController
+from wpimath.trajectory import TrapezoidProfile
+from wpimath.geometry import Rotation2d
+from wpimath.kinematics import SwerveModuleState
 
 from constants import MODULE_MAX_ANGULAR_VELOCITY 
 from constants import MODULE_MAX_ANGULAR_ACCELERATION 
@@ -20,12 +19,12 @@ class SwerveModule:
     
     def __init__(self, driveid: int, steerid: int, kP: float, kI: float, kD: float):
         self.drive = ctre.WPI_BaseMotorController(driveid, "talonfx")
-        self.turn = rev.SparkMax(steerid, rev.SparkLowLevel.MotorType.kBrushless)
+        self.turn = SparkMax(steerid, SparkLowLevel.MotorType.kBrushless)
         self.turnEncoder = self.turn.getEncoder() # NOTE: this is a relative encoder--wheels must be zeroed BEFORE turning on!
         
-        self.turningPIDController = wpimath.controller.ProfiledPIDController(
+        self.turningPIDController = ProfiledPIDController(
             kP, kI, kD,
-            wpimath.trajectory.TrapezoidProfile.Constraints(
+            TrapezoidProfile.Constraints(
                 MODULE_MAX_ANGULAR_VELOCITY,
                 MODULE_MAX_ANGULAR_ACCELERATION,
             ),
@@ -38,14 +37,14 @@ class SwerveModule:
         # Limit input range to -pi to pi with wrap
         self.turningPIDController.enableContinuousInput(-math.pi, math.pi)
 
-    def getEncoder(self) -> wpimath.geometry.Rotation2d: # Get the current position of the module
-        return wpimath.geometry.Rotation2d(self.turnEncoder.getPosition() * math.tau * SWERVE_TURN_GEAR_RATIO)
+    def getEncoder(self) -> Rotation2d: # Get the current position of the module
+        return Rotation2d(self.turnEncoder.getPosition() * math.tau * SWERVE_TURN_GEAR_RATIO)
     
     def setMaxOut(self, value: float):
         self.maxOut = value
 
     def setDesiredState(
-        self, desiredState: wpimath.kinematics.SwerveModuleState
+        self, desiredState: SwerveModuleState
     ) -> None:
         """Sets the desired state for the module.
 
@@ -60,7 +59,6 @@ class SwerveModule:
         state = desiredState
 
 
-#### THIS IS EDITED OUT
         # Scale speed by cosine of angle error. This scales down movement perpendicular to the desired
         # direction of travel that can occur when modules change directions. This results in smoother
         # driving.
