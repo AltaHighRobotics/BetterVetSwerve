@@ -14,8 +14,8 @@
   - [x] bucketSubsystem.py
   - [x] intakeSubystem.py
   - [x] state.py
-  - [ ] swerveDrive.py
-  - [ ] swerveModule.py
+  - [x] swerveDrive.py
+  - [x] swerveModule.py
 
 ## Git
 * The main branch is only for 100% tested, working code
