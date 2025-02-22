@@ -51,28 +51,28 @@ class SwerveDrive(Subsystem):
             -ctrToCtrOverTwo, -ctrToCtrOverTwo
         )
 
-        self.frontLeft = SwerveModule(
+        self.frontLeftModule = SwerveModule(
             FRONT_LEFT_DRIVE_ID,
             FRONT_LEFT_TURN_ID,
             TURN_P,
             TURN_I,
             TURN_D,
         )
-        self.frontRight = SwerveModule(
+        self.frontRightModule = SwerveModule(
             FRONT_RIGHT_DRIVE_ID,
             FRONT_RIGHT_TURN_ID,
             TURN_P,
             TURN_I,
             TURN_D,
         )
-        self.backLeft = SwerveModule(
+        self.backLeftModule = SwerveModule(
             BACK_LEFT_DRIVE_ID,
             BACK_LEFT_TURN_ID,
             TURN_P,
             TURN_I,
             TURN_D,
         )
-        self.backRight = SwerveModule(
+        self.backRightModule = SwerveModule(
             BACK_RIGHT_DRIVE_ID,
             BACK_RIGHT_TURN_ID,
             TURN_P,
@@ -153,19 +153,19 @@ class SwerveDrive(Subsystem):
             swerveModuleStates[2].angle = wpimath.geometry.Rotation2d(-math.pi / 4)
             swerveModuleStates[3].angle = wpimath.geometry.Rotation2d(math.pi / 4)
         # Set each swerve module to the state produced by the kinematics
-        self.frontLeft.setDesiredState(swerveModuleStates[0])
-        self.frontRight.setDesiredState(swerveModuleStates[1])
-        self.backLeft.setDesiredState(swerveModuleStates[2])
-        self.backRight.setDesiredState(swerveModuleStates[3])
+        self.frontLeftModule.setDesiredState(swerveModuleStates[0])
+        self.frontRightModule.setDesiredState(swerveModuleStates[1])
+        self.backLeftModule.setDesiredState(swerveModuleStates[2])
+        self.backRightModule.setDesiredState(swerveModuleStates[3])
 
     def setMaxOutput(
         self, maxOutput
     ):  # Maximum PercentOutput the drive motors can be driven at
         self.maxOut = maxOutput
-        self.frontLeft.setMaxOut(self.maxOut)
-        self.frontRight.setMaxOut(self.maxOut)
-        self.backLeft.setMaxOut(self.maxOut)
-        self.backRight.setMaxOut(self.maxOut)
+        self.frontLeftModule.setMaxOut(self.maxOut)
+        self.frontRightModule.setMaxOut(self.maxOut)
+        self.backLeftModule.setMaxOut(self.maxOut)
+        self.backRightModule.setMaxOut(self.maxOut)
 
     def FOReset(self):  # Set FO forward to the direction the plow is facing
         self.gyro.zeroYaw()
