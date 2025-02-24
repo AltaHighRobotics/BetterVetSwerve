@@ -75,3 +75,12 @@ BACK_RIGHT_TURN_ID = 55  # Motor ID for the back right swerve turn motor
 TURN_P = 10  # Proportional constant for the turning PID controller
 TURN_I = 0  # Integral constant for the turning PID controller
 TURN_D = 0.3  # Derivative constant for the turning PID controller
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    *** AprilTag Constants ***
+    These constants are used when configuring in the AprilTag module
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+KAUTO_ALIGN_P = 0
+KAUTO_ALIGN_I = 0
+KAUTO_ALIGN_D = 0
+KCAM_NAME = "camera1"
