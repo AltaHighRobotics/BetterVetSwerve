@@ -23,7 +23,8 @@ robotpy_extras = [
     # "romi",
     # "sim",
     # "xrp",
+    "photonvision"
 ]
 
 # Other pip packages to install
-requires = ["photonlibpy"]
+requires = []
