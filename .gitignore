@@ -1,2 +1,4 @@
 robot/__pycache__
 robot/.pytest_cache
+
+*__pycache__*
