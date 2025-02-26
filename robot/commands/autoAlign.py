@@ -5,7 +5,9 @@ from typing import Callable
 from subsystems.swerveDrive import SwerveDrive
 from subsystems.aprilTagSubsystem import AprilTagSubsystem
 
-import constants
+from constants import KAUTO_ALIGN_P
+from constants import KAUTO_ALIGN_I
+from constants import KAUTO_ALIGN_D
 
 class AutoAlign(Command):
     def __init__(self, drive: SwerveDrive, vision: AprilTagSubsystem, fwd: Callable[[],float], rot: Callable[[],float], tagID = 1):
@@ -17,7 +19,7 @@ class AutoAlign(Command):
         self.rot = rot
         self.tagnID = tagID
 
-        self.PID = PIDController(constants.kAutoAlignP, constants.kAutoAlignI, constants.kAutoAlignD)
+        self.PID = PIDController(KAUTO_ALIGN_P, KAUTO_ALIGN_I, KAUTO_ALIGN_D)
         self.PID.disableContinuousInput()
         self.PID.setSetpoint(0)
 
